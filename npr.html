@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>NPR Client</title>
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		<script>
+			var xmlhttp;
+
+			window.onload = function()
+			{
+				xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = processData;
+                xmlhttp.open("get", "http://api.npr.org/list?id=3218", false);
+                xmlhttp.send();
+			}
+            
+            function processData()
+            {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    document.getElementById('result').innerHTML = xmlhttp.responseText;   
+                }
+            }
+		</script>
+	</head>
+	<body>
+		<div id="result">
+	</body>
+</html>
