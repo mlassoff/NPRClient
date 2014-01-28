@@ -2,32 +2,41 @@ var xmlhttp;
 
 window.onload = function()
 {
-xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = processData;
-xmlhttp.open("get", "http://api.npr.org/list?id=3218", false);
-xmlhttp.send();
+    //Open Connection to NPR server for Topic List
+    //
+    //
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = processData;
+    xmlhttp.open("get", "http://api.npr.org/list?id=3218", false);
+    xmlhttp.send();
 }
 
 function processData()
 {
 if (xmlhttp.readyState==4 && xmlhttp.status==200)
 {
-	var ids = new Array();
-	var titles = new Array();
-	var info = new Array();
+	//Get the ids, titles and infos from the XML and build each list item
+    //
+    //
+    var ids;
+	var titles;
+	var info;
 	var output ="<ul>";
-	//Parse XML in to two parallel arrays
-	var theXML = xmlhttp.responseXML.documentElement.getElementsByTagName('item');
+	
+    //Loop through the items nodes in the XML
+    var theXML = xmlhttp.responseXML.documentElement.getElementsByTagName('item');
 	var numItems = theXML.length;
 	for(var i=0; i< numItems; i++)
 		{
-			ids[i] = theXML[i].getAttribute('id');
-			titles[i]= theXML[i].getElementsByTagName('title')[0].firstChild.textContent;
-			info[i]= theXML[i].getElementsByTagName('additionalInfo')[0].firstChild.textContent;
-			output += buildOutputCell(ids[i], titles[i], info[i]);
+			ids= theXML[i].getAttribute('id');
+			titles= theXML[i].getElementsByTagName('title')[0].firstChild.textContent;
+			info= theXML[i].getElementsByTagName('additionalInfo')[0].firstChild.textContent;
+			output += buildOutputCell(ids, titles, info);
 		}
 	output += "</ul>";
-	document.getElementById('result').innerHTML = output;
+	
+    //Add the constructed output to the UI
+    document.getElementById('result').innerHTML = output;
 }
 }
 
@@ -42,6 +51,9 @@ function buildOutputCell(id, data, info)
 
 function getNews(id)
 {
+    //Second XMLHTTP Request to get the selected news category XML
+    //
+    //
     var url = "http://api.npr.org/query?id=" + id + "&output=RSS&apiKey=MDEzMDc4Mjg4MDEzOTA4NjIzNTZkYzEwYw001";
     console.log(url);
     xmlhttp.onreadystatechange = processNewStory;
@@ -52,6 +64,9 @@ function getNews(id)
 
 function processNewStory()
 {
+    //Process and display stories
+    //
+    //
     if(xmlhttp.readyState==4 && xmlhttp.status==200)
     {
         var output = "";
@@ -70,14 +85,18 @@ function processNewStory()
             var description = stories[i].getElementsByTagName('description')[0].firstChild.nodeValue;
             var pubDate = stories[i].getElementsByTagName('pubDate')[0].firstChild.nodeValue;
             var link = stories[i].getElementsByTagName('link')[0].firstChild.nodeValue;
-            var storyOutput = "<h3>" + title + "</h3>";
-            storyOutput += "<p id='description'>" + description;
-            storyOutput += "<a href='" + link + "'> More...</a></p>";
-            storyOutput += "<p id='pubdate'>" + pubDate + "</p>";
-            output += storyOutput;
-            
+            output += makeStories(title, description, pubDate, link);
         }
         document.getElementById("result").innerHTML = output;
         
     }
+}
+
+function makeStories(title,description,pubDate, link)
+{
+    var storyOutput = "<h3>" + title + "</h3>";
+    storyOutput += "<p id='description'>" + description;
+    storyOutput += "<a href='" + link + "'>&nbsp;More...</a></p>";
+    storyOutput += "<p id='pubdate'>" + pubDate + "</p>"; 
+    return storyOutput;
 }
