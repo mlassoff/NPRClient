@@ -3,8 +3,29 @@
 <html>
 	<head>
 		<title>NPR Client</title>
-        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		<style>
+			ul	{
+				
+					list-style-type: none;	
+			}
+			
+			ul li {
+					font-family: arial;
+					font-weight: bold;
+					font-size: 1.25em;
+					border: 1px solid black;
+					width: 45%;
+					padding-left: 3px;
+					padding-top: 3px;
+					padding-bottom: 3px;
+					background-color: rgb(230,230,230)
+			}
+			
+			ul li:hover {
+					background-color: rgb(0,0,130);
+					color: rgb(255,255,255);
+			}
+		</style>
 		<script>
 			var xmlhttp;
 
@@ -20,12 +41,31 @@
             {
                 if (xmlhttp.readyState==4 && xmlhttp.status==200)
                 {
-                    document.getElementById('result').innerHTML = xmlhttp.responseText;   
-                }
+                    var ids = new Array();
+					var titles = new Array();
+					var output ="<ul id='selectable'>";
+					//Parse XML in to two parallel arrays
+                	var theXML = xmlhttp.responseXML.documentElement.getElementsByTagName('item');
+					var numItems = theXML.length;
+					for(var i=0; i< numItems; i++)
+						{
+							ids[i] = theXML[i].getAttribute('id');
+							titles[i]= theXML[i].getElementsByTagName('title')[0].firstChild.textContent;
+							output += buildOutputCell(ids[i], titles[i]);
+						}
+					output += "</ul>";
+					document.getElementById('result').innerHTML = output;
+				}
             }
+			
+			function buildOutputCell(id, data)
+			{
+				cellHTML = "<li id='" + id + "'>" + data + "</li>";
+				return cellHTML;
+			}
 		</script>
 	</head>
 	<body>
-		<div id="result">
+		<div id="result"></div>
 	</body>
 </html>
