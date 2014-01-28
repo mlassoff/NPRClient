@@ -57,6 +57,10 @@ function processNewStory()
         var output = "";
         var storyXML = xmlhttp.responseXML.documentElement;
         console.log(storyXML);
+        var image = storyXML.getElementsByTagName('image')[0].getElementsByTagName('url')[0].firstChild.nodeValue;
+        document.getElementById('catImage').src = image;
+        var title = storyXML.getElementsByTagName('title')[0].firstChild.nodeValue;
+        output += "<h2>" + title + "</h2>";
         output += "<p><em>" + storyXML.getElementsByTagName('copyright')[0].firstChild.nodeValue + "</em></p>";
         var stories =  storyXML.getElementsByTagName('item');
         var numStories = stories.length;
@@ -65,10 +69,11 @@ function processNewStory()
             var title = stories[i].getElementsByTagName('title')[0].firstChild.nodeValue;
             var description = stories[i].getElementsByTagName('description')[0].firstChild.nodeValue;
             var pubDate = stories[i].getElementsByTagName('pubDate')[0].firstChild.nodeValue;
-           // var contentEncoded = stories[0].getElementsByTagName('contentEncoded')[i].firstChild.nodeValue;
-            var storyOutput = "<p>" + title + "</p>";
-            storyOutput += "<p>" + description + "</p>";
-            storyOutput += "<p>" + pubDate + "</p>";
+            var link = stories[i].getElementsByTagName('link')[0].firstChild.nodeValue;
+            var storyOutput = "<h3>" + title + "</h3>";
+            storyOutput += "<p id='description'>" + description;
+            storyOutput += "<a href='" + link + "'> More...</a></p>";
+            storyOutput += "<p id='pubdate'>" + pubDate + "</p>";
             output += storyOutput;
             
         }

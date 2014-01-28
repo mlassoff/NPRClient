@@ -1,25 +1,31 @@
 ul	{
 	
 		list-style-type: none;	
+        list-style-position:inside;
 }
 
 li h3
 {
 		font-family: arial;
 		font-weight: bold;
-		font-size: 1.25em;
+		font-size: 1.05em;
 		padding-left: 3px;
 		margin-top: 0px;
 		margin-bottom: 0px;
 		padding-bottom: 0px;
 }
+
 ul li {
 		
 		border: 2px solid rgb(125,125,125);
-		width: 35%;
-		padding-top: 3px;
-		background-color: rgb(160,160,160);
+		width: 100%;
+		padding-top: 1px;
+		background-color: #8a939b;
+        color: black;
+        margin-top: 4px;
+        
 }
+
 
 ul li:hover {
 		background-color: rgb(130,120,130);
@@ -32,8 +38,36 @@ li p
 	font-family: arial;
 	font-size: .7em;
 	line-height: 1;
-	background-color: rgb(25,25,25);
+	background-color: #128fc2;
 	color: white;
 	margin-bottom: 0px;
 	margin-top: 0px;
+    padding-left: 3px;
 }
+
+#result h2
+{
+    font-size: 1.45em;
+    font-weight: bold;
+    font-family: Arial;
+}
+
+#result h3
+{
+    font-size: 1.05em;
+    font-weight: bold;
+    font-family: Arial;
+}
+
+#pubdate
+{
+    font-size: .75em;
+    font-style: italic;
+}
+
+#description
+{
+    font-size: .9em;
+    
+}
+    
