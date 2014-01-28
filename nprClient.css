@@ -12,7 +12,8 @@ ul li {
 		padding-left: 3px;
 		padding-top: 3px;
 		padding-bottom: 3px;
-		background-color: rgb(230,230,230)
+		background-color: rgb(230,230,230);
+		corner-radius: 3px;
 }
 
 ul li:hover {
