@@ -15,7 +15,7 @@ li h3
 }
 ul li {
 		
-		border: 1px solid black;
+		border: 2px solid rgb(125,125,125);
 		width: 35%;
 		padding-top: 3px;
 		background-color: rgb(160,160,160);
