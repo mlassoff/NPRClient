@@ -54,7 +54,7 @@ function getNews(id)
     //Second XMLHTTP Request to get the selected news category XML
     //
     //
-    var url = "http://api.npr.org/query?id=" + id + "&output=RSS&apiKey=MDEzMDc4Mjg4MDEzOTA4NjIzNTZkYzEwYw001";
+    var url = "http://api.npr.org/query?id=" + id + "&output=RSS&apiKey=XXX";
     console.log(url);
     xmlhttp.onreadystatechange = processNewStory;
     xmlhttp.open("GET", url, false);
